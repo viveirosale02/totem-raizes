@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raízes do Nordeste — Totem de Autoatendimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== TELA 0 — BOAS-VINDAS ===================== -->
+<section class="screen" id="screen-welcome" data-screen="welcome">
+  <div class="welcome">
+    <div class="welcome__mark">Raízes do Nordeste</div>
+    <h1 class="welcome__headline">Bem-vindo. <br>Vamos montar seu pedido?</h1>
+    <p class="welcome__sub">Toque na tela para começar</p>
+    <button class="btn btn--primary btn--giant" data-goto="cardapio">Toque para começar</button>
+    <div class="welcome__unit">Unidade Boa Vista — Recife/PE</div>
+  </div>
+</section>
+
+<!-- ===================== TELA 1 — CARDÁPIO ===================== -->
+<section class="screen" id="screen-cardapio" data-screen="cardapio">
+  <header class="topbar">
+    <div class="topbar__brand">Raízes do Nordeste</div>
+    <nav class="steps" aria-label="Etapas do pedido">
+      <div class="step is-active"><span class="step__dot"></span>Cardápio</div>
+      <div class="step"><span class="step__dot"></span>Sacola</div>
+      <div class="step"><span class="step__dot"></span>Pagamento</div>
+    </nav>
+    <button class="cart-pill" data-goto="sacola">
+      <span class="cart-pill__icon">🧺</span>
+      <span id="cart-count">0</span> itens · <span id="cart-total">R$ 0,00</span>
+    </button>
+  </header>
+
+  <div class="menu-layout">
+    <aside class="categories" aria-label="Categorias">
+      <button class="cat-btn is-active" data-cat="todos">Tudo</button>
+      <button class="cat-btn" data-cat="salgados">Salgados</button>
+      <button class="cat-btn" data-cat="bolos">Bolos &amp; doces</button>
+      <button class="cat-btn" data-cat="bebidas">Bebidas</button>
+      <button class="cat-btn" data-cat="junino">
+        Período junino <span class="seasonal-dot" aria-hidden="true"></span>
+      </button>
+    </aside>
+
+    <main class="product-grid" id="product-grid" aria-live="polite">
+      <!-- produtos injetados via JS -->
+    </main>
+  </div>
+</section>
+
+<!-- ===================== TELA 2 — DETALHE DO PRODUTO (MODAL) ===================== -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
+    <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+    <div class="modal-card__media" id="modal-media"></div>
+    <div class="modal-card__body">
+      <span class="modal-card__tag" id="modal-tag"></span>
+      <h2 id="modal-product-name">Nome do produto</h2>
+      <p class="modal-card__desc" id="modal-desc">Descrição do produto.</p>
+      <div class="modal-card__price" id="modal-price">R$ 0,00</div>
+
+      <div class="stepper-row">
+        <span class="stepper-label">Quantidade</span>
+        <div class="stepper">
+          <button class="stepper__btn" id="qty-minus" aria-label="Diminuir quantidade">−</button>
+          <span class="stepper__value" id="qty-value">1</span>
+          <button class="stepper__btn" id="qty-plus" aria-label="Aumentar quantidade">+</button>
+        </div>
+      </div>
+
+      <button class="btn btn--primary btn--block" id="add-to-cart">Adicionar à sacola</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TELA 3 — SACOLA / CARRINHO ===================== -->
+<section class="screen" id="screen-sacola" data-screen="sacola">
+  <header class="topbar">
+    <button class="back-btn" data-goto="cardapio" aria-label="Voltar ao cardápio">← Cardápio</button>
+    <nav class="steps" aria-label="Etapas do pedido">
+      <div class="step is-done"><span class="step__dot"></span>Cardápio</div>
+      <div class="step is-active"><span class="step__dot"></span>Sacola</div>
+      <div class="step"><span class="step__dot"></span>Pagamento</div>
+    </nav>
+    <div class="topbar__spacer"></div>
+  </header>
+
+  <div class="cart-layout">
+    <div class="cart-list" id="cart-list">
+      <!-- itens injetados via JS -->
+    </div>
+
+    <aside class="order-summary">
+      <h2>Resumo do pedido</h2>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="summary-subtotal">R$ 0,00</span>
+      </div>
+      <div class="summary-row summary-row--total">
+        <span>Total</span>
+        <span id="summary-total">R$ 0,00</span>
+      </div>
+
+      <p class="summary-hint">Pedido para consumir no local ou retirar no balcão.</p>
+
+      <button class="btn btn--primary btn--block btn--tall" data-goto="identificacao">
+        Continuar
+      </button>
+      <button class="btn btn--ghost btn--block" data-goto="cardapio">
+        Adicionar mais itens
+      </button>
+    </aside>
+  </div>
+</section>
+
+<!-- ===================== TELA 4 — IDENTIFICAÇÃO / LGPD ===================== -->
+<section class="screen" id="screen-identificacao" data-screen="identificacao">
+  <header class="topbar topbar--center">
+    <button class="back-btn" data-goto="sacola" aria-label="Voltar à sacola">← Sacola</button>
+    <div class="topbar__brand">Raízes do Nordeste</div>
+    <div class="topbar__spacer"></div>
+  </header>
+
+  <div class="identify-layout">
+    <div class="identify-card">
+      <h1>Quer juntar pontos no nosso programa de fidelidade?</h1>
+      <p class="identify-sub">É opcional. Você pode pedir sem se identificar.</p>
+
+      <div class="identify-toggle" id="identify-toggle">
+        <button class="toggle-opt is-active" data-mode="anon">Pedir sem identificação</button>
+        <button class="toggle-opt" data-mode="id">Quero me identificar</button>
+      </div>
+
+      <div class="identify-form" id="identify-form" hidden>
+        <label class="field">
+          <span class="field__label">Celular ou CPF</span>
+          <input type="text" placeholder="(81) 9 9999-9999" class="field__input">
+        </label>
+
+        <div class="consent-box">
+          <input type="checkbox" id="consent-check" class="consent-box__check">
+          <label for="consent-check" class="consent-box__label">
+            Autorizo o uso dos meus dados para acumular pontos de fidelidade e
+            receber ofertas personalizadas, conforme a
+            <button class="link-btn" id="open-lgpd">Política de Privacidade</button>.
+            Posso revogar este consentimento quando quiser.
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn--primary btn--block btn--tall" data-goto="pagamento">
+        Ir para o pagamento
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- LGPD modal -->
+<div class="modal-overlay" id="lgpd-modal">
+  <div class="modal-card modal-card--text" role="dialog" aria-modal="true">
+    <button class="modal-close" id="lgpd-close" aria-label="Fechar">✕</button>
+    <h2>Como tratamos seus dados</h2>
+    <ul class="lgpd-list">
+      <li>Usamos apenas nome, telefone e CPF para identificar seu cadastro de pontos.</li>
+      <li>Seus dados não são vendidos nem compartilhados com terceiros para publicidade.</li>
+      <li>Você pode consultar, corrigir ou excluir seus dados a qualquer momento numa unidade ou pelo app.</li>
+      <li>O consentimento é sempre opcional — pedidos sem identificação funcionam normalmente.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== TELA 5 — PAGAMENTO ===================== -->
+<section class="screen" id="screen-pagamento" data-screen="pagamento">
+  <header class="topbar">
+    <button class="back-btn" data-goto="identificacao" aria-label="Voltar">← Voltar</button>
+    <nav class="steps" aria-label="Etapas do pedido">
+      <div class="step is-done"><span class="step__dot"></span>Cardápio</div>
+      <div class="step is-done"><span class="step__dot"></span>Sacola</div>
+      <div class="step is-active"><span class="step__dot"></span>Pagamento</div>
+    </nav>
+    <div class="topbar__spacer"></div>
+  </header>
+
+  <div class="payment-layout">
+    <div class="payment-card">
+      <h1>Como você vai pagar?</h1>
+      <div class="pay-options">
+        <button class="pay-opt" data-pay="pix">
+          <span class="pay-opt__icon">PIX</span>
+          <span class="pay-opt__label">Pix</span>
+        </button>
+        <button class="pay-opt" data-pay="credito">
+          <span class="pay-opt__icon">💳</span>
+          <span class="pay-opt__label">Crédito</span>
+        </button>
+        <button class="pay-opt" data-pay="debito">
+          <span class="pay-opt__icon">💳</span>
+          <span class="pay-opt__label">Débito</span>
+        </button>
+      </div>
+      <div class="payment-total">
+        <span>Total a pagar</span>
+        <strong id="payment-total-value">R$ 0,00</strong>
+      </div>
+      <button class="btn btn--primary btn--block btn--tall" id="confirm-payment" disabled>
+        Confirmar pagamento
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TELA 6 — AGUARDANDO PAGAMENTO ===================== -->
+<section class="screen" id="screen-aguardando" data-screen="aguardando">
+  <div class="status-layout">
+    <div class="spinner" aria-hidden="true"></div>
+    <h1>Aproxime ou insira o cartão</h1>
+    <p>Confirmando seu pagamento com a operadora...</p>
+    <p class="status-order-id">Pedido nº <strong id="waiting-order-id">—</strong></p>
+  </div>
+</section>
+
+<!-- ===================== TELA 7 — SUCESSO ===================== -->
+<section class="screen" id="screen-sucesso" data-screen="sucesso">
+  <div class="status-layout">
+    <div class="status-icon status-icon--success" aria-hidden="true">✓</div>
+    <h1>Pagamento aprovado!</h1>
+    <p>Seu pedido já foi para a cozinha.</p>
+    <div class="order-number-card">
+      <span>Acompanhe pela senha</span>
+      <strong id="success-order-id">000</strong>
+    </div>
+    <button class="btn btn--primary btn--block btn--tall" data-goto="welcome">Fazer novo pedido</button>
+  </div>
+</section>
+
+<!-- ===================== TELA 8 — PAGAMENTO RECUSADO ===================== -->
+<section class="screen" id="screen-recusado" data-screen="recusado">
+  <div class="status-layout">
+    <div class="status-icon status-icon--error" aria-hidden="true">!</div>
+    <h1>Não conseguimos aprovar o pagamento</h1>
+    <p>Verifique seu cartão ou tente outra forma de pagamento. Nenhum valor foi cobrado.</p>
+    <button class="btn btn--primary btn--block btn--tall" data-goto="pagamento">Tentar novamente</button>
+    <button class="btn btn--ghost btn--block" data-goto="sacola">Voltar à sacola</button>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
